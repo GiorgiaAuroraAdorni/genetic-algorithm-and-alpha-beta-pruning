@@ -277,11 +277,11 @@ while not stop:
 	LR = 0.001
 	
 	for b in best_individuals:
-	P = P * (1.0 - LR) + new_solution_vector[b] * LR
+		P = P * (1.0 - LR) + new_solution_vector[b] * LR
 	
 	# Test if the solution has converged according to some criterion
 	if converged:
-	stop = True
+		stop = True
 
 \end{python}
 	

@@ -239,9 +239,9 @@ P = np.full(n, 0.5)  # initialisation
 k = 100
 generations = 10
 m = 5
-condition = True
+stop = False
 
-while condition:
+while not stop:
 	# Produce a given k number of traditional 0-1 individuals each of 
 	# them of length n by sampling gene by gene with the prob vector.
 	solution_vector = np.random.binomial(1, P, size=[k, n])
@@ -265,7 +265,7 @@ while condition:
 		
 		new_solution_vector[2*i, :] = ch1
 		new_solution_vector[2*i+1, :] = ch2
-		
+	
 	# At the end of each generation, the best m individuals are used to 
 	# update the probabilistic vector.
 	fitness = evaluate(new_solution_vector)
@@ -274,13 +274,15 @@ while condition:
 	# For each individual of the best m chosen, the probabilistic vector 
 	# is updated using a learning rate LR parameter (real number between 
 	# 0 and 1)
-	LR = np.random.uniform()
+	LR = 0.001
 	
 	for b in best_individuals:
 	P = P * (1.0 - LR) + new_solution_vector[b] * LR
 	
-	if stop:
-	condition = False
+	# Test if the solution has converged according to some criterion
+	if converged:
+	stop = True
+
 \end{python}
 	
 

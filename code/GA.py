@@ -11,9 +11,9 @@ print('P: ', P)
 k = 100
 generations = 10
 m = 5
-condition = True
+stop = False
 
-while condition:
+while not stop:
     # In each generation produces a given k number of traditional 0-1 individuals
     # each of them of length n by sampling gene by gene with the probabilistic vector.
 
@@ -46,10 +46,11 @@ while condition:
     # for each individual j of the best m chosen,
     # the probabilistic vector is updated using a learning rate LR parameter (that is a real number between 0 and 1)
     # P[i] = P[i] * (1.0 - LR) + solution_vectors[j][i]* (LR); with i=1 to n and j=1 to m.
-    LR = np.random.uniform()
+    LR = 0.001
 
     for b in best_individuals:
         P = P * (1.0 - LR) + new_solution_vector[b] * LR
 
-    if stop:
-        condition = False
+    # Test if the solution has converged according to some criterion
+    if converged:
+        stop = True
